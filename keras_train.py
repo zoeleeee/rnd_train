@@ -37,7 +37,7 @@ nb_channal = int(path.split('_')[1].split('.')[1])
 loss_func = 'xent'
 
 imgs = np.load('data/mnist_data.npy').transpose((0,2,3,1))
-labels = keras.utils.to_categorical(np.load('data/mnist_labels.npy'), 10)
+labels = np.load('data/mnist_labels.npy')
 input_shape = imgs.shape
 nb_labels = labels.shape[-1]
 # imgs, labels, input_shape, model_dir = two_pixel_perm_sliding(nb_channal, model_dir)
