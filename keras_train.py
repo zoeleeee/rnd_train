@@ -69,8 +69,8 @@ model.compile(loss=custom_loss, optimizer=keras.optimizers.Adam(1e-3))
 x_train, y_train = imgs[:60000], labels[:60000]
 x_test, y_test = imgs[60000:], labels[60000:]
 N = 10
-# x_test, model_dir = disorder_data_extend(N, imgs, model_dir)
-x_train, model_dir = order_data_extend(N, imgs, model_dir)
+# x_train, model_dir = disorder_data_extend(N, x_train, model_dir)
+x_train, model_dir = order_data_extend(N, x_train, model_dir)
 y_train = np.vstack(list(y_train)*N)
 
 epochs = max_num_training_steps * batch_size / len(x_train)
