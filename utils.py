@@ -150,7 +150,7 @@ def disorder_data_extend(N, imgs, model_dir):
 	tot_x_train = [imgs]
 	for i in range(N):
 		perm = np.random.permutation(np.arange(256))
-		tot_x_train.append(np.array([[[perms[c[0]] for c in b] for b in a] for a in x_train]))
+		tot_x_train.append(np.array([[[perms[c[0]] for c in b] for b in a] for a in imgs]))
 	return np.vstack(tot_x_train) / 255., model_dir+'_disorder'
 
 def order_data_extend(N, imgs, model_dir):
@@ -164,7 +164,7 @@ def order_data_extend(N, imgs, model_dir):
 	tot_x_train = [imgs]
 	for i in range(1,N):
 		perm = np.random.randint(0,255)
-		tot_x_train.append((x_train+perm)%256)
+		tot_x_train.append((imgs+perm)%256)
 	return np.vstack(tot_x_train) / 255., model_dir+'_order'
 
 def show_image(img):
