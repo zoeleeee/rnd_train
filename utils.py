@@ -163,7 +163,7 @@ def order_data_extend(N, imgs, model_dir):
 	imgs = imgs.astype(np.int)
 	tot_x_train = [imgs]
 	for i in range(1,N):
-		perm = np.random.randomint(0,255)
+		perm = np.random.randint(0,255)
 		tot_x_train.append((x_train+perm)%256)
 	return np.vstack(tot_x_train) / 255., model_dir+'_order'
 
