@@ -72,7 +72,7 @@ np.random.seed(777)
 tot_x_train = [x_train]
 N = 10
 for i in range(N):
-	perms.append(np.random.permutation(np.arange(256))).reshape(-1, 1)
+	perms = np.random.permutation(np.arange(256)).reshape(-1, 1)
 	tot_x_train.append(np.array([[[perms[c[0]] for c in b] for b in a] for a in x_train]))
 x_train = np.vstack(tot_x_train) / 255.
 y_train = np.vstack(list(y_train)*N)
