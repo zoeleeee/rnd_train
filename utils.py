@@ -139,6 +139,34 @@ def diff_perm_per_classifier(st_lab, nb_channal, model_dir):
 	input_shape = imgs.shape[1:]
 	return imgs, labels, input_shape, model_dir+'_lab'
 
+def disorder_data_extend(N, imgs, model_dir):
+	np.random.seed(777)
+	if np.max(imgs) <= 1:
+		imgs *= 255
+	assert len(imgs.shape)==4, 'imgs shape should be 4'
+	if imgs.shape[-1] != 1:
+		imgs = imgs.transpose((0,2,3,1))
+	imgs = imgs.astype(np.int)
+	tot_x_train = [imgs]
+	for i in range(N):
+		perm = np.random.permutation(np.arange(256))
+		tot_x_train.append(np.array([[[perms[c[0]] for c in b] for b in a] for a in x_train]))
+	return np.vstack(tot_x_train) / 255., model_dir+'_disorder'
+
+def order_data_extend(N, imgs, model_dir):
+	np.random.seed(777)
+	if np.max(imgs) <= 1:
+		imgs *= 255
+	assert len(imgs.shape)==4, 'imgs shape should be 4'
+	if imgs.shape[-1] != 1:
+		imgs = imgs.transpose((0,2,3,1))
+	imgs = imgs.astype(np.int)
+	tot_x_train = [imgs]
+	for i in range(1,N):
+		perm = np.random.randomint(0,255)
+		tot_x_train.append((x_train+perm)%256)
+	return np.vstack(tot_x_train) / 255., model_dir+'_order'
+
 def show_image(img):
     """
     Show MNSIT digits in the console.

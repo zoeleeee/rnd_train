@@ -68,13 +68,9 @@ model.compile(loss=custom_loss, optimizer=keras.optimizers.Adam(1e-3))
 
 x_train, y_train = imgs[:60000], labels[:60000]
 x_test, y_test = imgs[60000:], labels[60000:]
-np.random.seed(777)
-tot_x_train = [x_train]
 N = 10
-for i in range(N):
-	perms = np.random.permutation(np.arange(256)).reshape(-1, 1)
-	tot_x_train.append(np.array([[[perms[c[0]] for c in b] for b in a] for a in x_train]))
-x_train = np.vstack(tot_x_train) / 255.
+# x_test, model_dir = disorder_data_extend(N, imgs, model_dir)
+x_test, model_dir = order_data_extend(N, imgs, model_dir)
 y_train = np.vstack(list(y_train)*N)
 
 epochs = max_num_training_steps * batch_size / len(x_train)
